@@ -1,7 +1,7 @@
 // ===== Mental Health Score Predictor: frontend logic =====
 
 // Address of the FastAPI prediction endpoint
-const API_URL = "https://mental-health-score-predictor-5nhm.onrender.com";
+const API_URL = const API_URL = "https://mental-health-score-predictor-5nhm.onrender.com/predict";
 
 // ASSUMPTION: the gauge scale. Your backend does not state the model's score range.
 // 1-10 is assumed (the usual scale for this kind of dataset). Change these two
