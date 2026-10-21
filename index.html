@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mental Health Score Predictor</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="wrap">
+      <span class="brand">Mental Health Score Predictor</span>
+      <span class="tagline">Lifestyle-based mental health score estimates</span>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="wrap">
+      <h1>See how daily habits relate to a mental health score</h1>
+      <p>This tool sends your lifestyle, academic and social media usage details to a trained machine learning model and shows the score it estimates. It takes about a minute.</p>
+    </div>
+  </section>
+
+  <main class="wrap layout">
+
+    <form id="predict-form" class="card" novalidate>
+
+      <fieldset>
+        <legend>Personal information</legend>
+        <div class="grid">
+          <div class="field slider-field">
+            <div class="slider-head"><label for="age">Age</label><output id="age-out" for="age"></output></div>
+            <input type="range" id="age" name="age" min="10" max="100" step="1" value="21">
+            <div class="slider-scale"><span>10</span><span>100</span></div>
+          </div>
+          <div class="field">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender" required>
+              <option value="">Select gender</option>
+              <option>Male</option>
+              <option>Female</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="country">Country</label>
+            <select id="country" name="country" required>
+              <option value="">Select country</option>
+              <option>India</option><option>USA</option><option>Canada</option>
+              <option>Australia</option><option>UK</option><option>Germany</option>
+              <option>Mexico</option><option>Turkey</option><option>France</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="field" id="other-country-field" hidden>
+            <label for="other-country">Your country</label>
+            <input type="text" id="other-country" placeholder="e.g. Brazil">
+          </div>
+          <div class="field">
+            <label for="academic_level">Academic level</label>
+            <select id="academic_level" name="academic_level" required>
+              <option value="">Select level</option>
+              <option>Undergraduate</option>
+              <option>Graduate</option>
+              <option>High School</option>
+            </select>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Social media usage</legend>
+        <div class="grid">
+          <div class="field">
+            <label for="most_used_platform">Most used platform</label>
+            <select id="most_used_platform" name="most_used_platform" required>
+              <option value="">Select platform</option>
+              <option>Facebook</option><option>LinkedIn</option><option>Instagram</option>
+              <option>Snapchat</option><option>Twitter</option><option>YouTube</option>
+              <option>TikTok</option><option>LINE</option><option>KakaoTalk</option>
+              <option>VKontakte</option><option>WhatsApp</option><option>WeChat</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="purpose_of_use">Main purpose of use</label>
+            <select id="purpose_of_use" name="purpose_of_use" required>
+              <option value="">Select purpose</option>
+              <option>Networking</option>
+              <option>Education</option>
+              <option>Entertainment</option>
+              <option>News</option>
+            </select>
+          </div>
+          <div class="field slider-field">
+            <div class="slider-head"><label for="avg_daily_usage_hours">Average daily usage</label><output id="avg_daily_usage_hours-out" for="avg_daily_usage_hours" data-unit=" h"></output></div>
+            <input type="range" id="avg_daily_usage_hours" name="avg_daily_usage_hours" min="0" max="24" step="0.5" value="5">
+            <div class="slider-scale"><span>0 h</span><span>24 h</span></div>
+          </div>
+          <div class="field slider-field">
+            <div class="slider-head"><label for="daily_unlocks">Daily phone unlocks</label><output id="daily_unlocks-out" for="daily_unlocks"></output></div>
+            <input type="range" id="daily_unlocks" name="daily_unlocks" min="0" max="300" step="1" value="60">
+            <div class="slider-scale"><span>0</span><span>300</span></div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Academic and lifestyle habits</legend>
+        <div class="grid">
+          <div class="field slider-field">
+            <div class="slider-head"><label for="study_hours">Study hours per day</label><output id="study_hours-out" for="study_hours" data-unit=" h"></output></div>
+            <input type="range" id="study_hours" name="study_hours" min="0" max="24" step="0.5" value="4">
+            <div class="slider-scale"><span>0 h</span><span>24 h</span></div>
+          </div>
+          <div class="field slider-field">
+            <div class="slider-head"><label for="physical_activity_hours">Physical activity per day</label><output id="physical_activity_hours-out" for="physical_activity_hours" data-unit=" h"></output></div>
+            <input type="range" id="physical_activity_hours" name="physical_activity_hours" min="0" max="24" step="0.5" value="1">
+            <div class="slider-scale"><span>0 h</span><span>24 h</span></div>
+          </div>
+          <div class="field slider-field">
+            <div class="slider-head"><label for="sleep_hours_per_night">Sleep per night</label><output id="sleep_hours_per_night-out" for="sleep_hours_per_night" data-unit=" h"></output></div>
+            <input type="range" id="sleep_hours_per_night" name="sleep_hours_per_night" min="0" max="24" step="0.5" value="7">
+            <div class="slider-scale"><span>0 h</span><span>24 h</span></div>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Stress and well-being</legend>
+        <div class="grid">
+          <div class="field" role="radiogroup" aria-labelledby="stress-label">
+            <span class="field-label" id="stress-label">Current stress level</span>
+            <div class="segmented" id="stress_level">
+              <label><input type="radio" name="stress_level" value="Low"><span>Low</span></label>
+              <label><input type="radio" name="stress_level" value="Medium"><span>Medium</span></label>
+              <label><input type="radio" name="stress_level" value="High"><span>High</span></label>
+              <label><input type="radio" name="stress_level" value="Very High"><span>Very High</span></label>
+            </div>
+          </div>
+        </div>
+      </fieldset>
+
+      <div id="message" class="message" role="alert" aria-live="polite" hidden></div>
+
+      <div class="actions">
+        <button type="submit" id="submit-btn" class="btn primary">
+          <span class="spinner" aria-hidden="true"></span>
+          <span id="btn-label">Predict Mental Health Score</span>
+        </button>
+        <button type="button" id="reset-btn" class="btn secondary">Reset</button>
+      </div>
+    </form>
+
+    <!-- Result: semicircular gauge -->
+    <aside id="result" class="card result" aria-live="polite" hidden>
+      <h2>Estimated score</h2>
+      <div class="gauge">
+        <svg viewBox="0 0 200 120" role="img" aria-label="Semicircular score gauge">
+          <defs>
+            <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#2f6fa8"/>
+              <stop offset="100%" stop-color="#178a8a"/>
+            </linearGradient>
+          </defs>
+          <path class="gauge-track" d="M 20 100 A 80 80 0 0 1 180 100" pathLength="100"/>
+          <path id="gauge-fill" class="gauge-fill" d="M 20 100 A 80 80 0 0 1 180 100" pathLength="100"/>
+          <text id="gauge-min" x="20" y="116" text-anchor="middle" class="gauge-tick"></text>
+          <text id="gauge-max" x="180" y="116" text-anchor="middle" class="gauge-tick"></text>
+        </svg>
+        <p id="score" class="score">–</p>
+      </div>
+      <p class="note">This is a model-generated estimate based on the details you entered. It is not a clinical diagnosis or medical advice.</p>
+    </aside>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">This is an educational project. If you are worried about your mental health, please talk to a qualified professional.</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
